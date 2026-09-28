@@ -1,4 +1,4 @@
-// ==SpectaExtension==
+﻿// ==SpectaExtension==
 // @id com.maxmovies.cc
 // @name maxmovies-cc
 // @version 1.0.0
