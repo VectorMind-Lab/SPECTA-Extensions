@@ -5,12 +5,11 @@
 // @author Auto-Discovery
 // @apiVersion 2
 // @type movie,series
-// @capabilities search,latest,details,sources,mp4,hls,network,logging
+// @capabilities search,latest,details,sources,network,logging
 // @description MaxMovies streaming source with auto-detected API and replay recipe
 // @webSite https://maxmovies.cc/
 // @lang en
-// @contractVersion 2.1.0
-// @signature ed25519:sqc0+iyCd5S1WHSWTF65vsziLu9nnaIynaRUD5eEGAE+XDTsKMHs22QyKOCcQZM/8MkpxcfMjd+mG/sokB3fDQ==
+// @signature ed25519:6xzFme/dpv7t+Lr1oQ/eM33S9vc0hla2BohuAhhSookOGVmbqlYqDthouzU/VdKC57uAXLNp7RVBJadxw5LPDQ==
 // ==/SpectaExtension==
 
 /**
@@ -72,6 +71,17 @@ function _streamType(url) {
   if (/\.mpd$/.test(pathname)) return "mpd";
   if (/\.mp4$/.test(pathname)) return "mp4";
   return "unknown";
+}
+
+function _detectMediaType(item, kind) {
+  var t = item.type || item.media_type || "";
+  if (t) {
+    if (t === "movie" || t === "Movie") return "movie";
+    if (t === "tv" || t === "series" || t === "tv_series") return "series";
+  }
+  if (kind === "movie") return "movie";
+  if (kind === "tv") return "series";
+  return "";
 }
 
 function _source(url, type, headers) {
@@ -239,7 +249,7 @@ async function search(kw, page) {
           var kind = list === data.movies ? "movie" : (list === data.tv ? "tv" : "");
           if (!l && kind && item.id != null) l = "/watch/" + kind + "-" + String(item.id);
           var c = item.cover || item.poster || item.image || item.posterUrl || "";
-          if (t && l) out.push({ title: t, url: _abs(l), cover: _abs(c) });
+          if (t && l) out.push({ title: t, url: _abs(l), type: _detectMediaType(item, kind), cover: _abs(c) });
         }
       }
       if (out.length > 0) return out;
@@ -268,11 +278,80 @@ async function search(kw, page) {
     var l = link.attr("href") || "";
     var c = poster.attr("data-src") || poster.attr("src") || "";
     if (t && l) {
-      results.push({ title: t, url: _abs(l), cover: _abs(c) });
+      results.push({ title: t, url: _abs(l), type: _detectMediaType($(el).data(), "auto"), cover: _abs(c) });
     }
   });
   if (results.length === 0) return _failure(apiFailure || "DOM_EXTRACTION_EMPTY", apiFailure ? "API failed and DOM fallback was empty." : "DOM selectors matched no usable results.");
   return results;
+}
+
+async function details(url) {
+  var res = await this.request({ url: url, method: "GET", headers: _mergeHeaders() });
+  var body = res.body || "";
+  try { body = JSON.parse(body); } catch (e) {}
+
+  var type = url.includes("/movie") || url.includes("-movie") ? "movie" : "series";
+
+  var title = body.title || body.name || "";
+  var description = body.description || body.overview || "";
+  var cover = body.poster || body.cover || body.image || "";
+  var backdrop = body.backdrop || body.backdrop_path || "";
+  var year = null;
+  var yearStr = body.year || body.release_date || body.premiered;
+  if (yearStr) {
+    var m = String(yearStr).match(/^\d{4}/);
+    if (m) year = parseInt(m[0]);
+  }
+  var genres = body.genres || [];
+  if (Array.isArray(genres)) genres = genres.map(function (g) { return typeof g === "string" ? g : (g && g.name ? g.name : ""); }).filter(function (g) { return g; });
+  var rating = body.rating || body.vote_average || null;
+
+  var result = {
+    id: String(body.id || url),
+    title: title,
+    type: type,
+    url: url,
+    description: description || undefined,
+    cover: cover ? _abs(cover) : undefined,
+    backdrop: backdrop ? _abs(backdrop) : undefined,
+    year: year,
+    genres: genres.length ? genres : undefined,
+    rating: rating ? parseFloat(rating) : undefined
+  };
+
+  if (type === "series") {
+    var seasons = [];
+    var seasonData = body.seasons || [];
+    if (Array.isArray(seasonData) && seasonData.length) {
+      for (var i = 0; i < seasonData.length; i++) {
+        var s = seasonData[i];
+        if (s && s.episodes && Array.isArray(s.episodes)) {
+          var episodes = s.episodes.map(function (ep) {
+            return {
+              episodeNumber: ep.episodeNumber || ep.number || 0,
+              url: ep.url || _abs(ep.url || ""),
+              title: ep.title || ep.name || undefined,
+              description: ep.description || undefined,
+              cover: ep.image ? _abs(ep.image) : undefined
+            };
+          }).filter(function (ep) { return ep.episodeNumber > 0 && ep.url; });
+          seasons.push({ seasonNumber: s.seasonNumber || s.number || 0, title: s.title || undefined, episodes: episodes });
+        }
+      }
+    }
+    if (seasons.length) result.seasons = seasons;
+  }
+
+  return result;
+}
+
+async function capabilities() {
+  return {
+    contentTypes: ["movie", "series"],
+    discovery: { search: true, latest: true },
+    metadata: { details: true, seasons: true, episodes: true },
+    sources: { mp4: true, hls: true, headers: true }
+  };
 }
 
 async function watch(url) {
