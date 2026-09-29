@@ -1,0 +1,94 @@
+{
+  "strategy": {
+    "template": "api_chain",
+    "replay_recipe": {
+      "version": 1,
+      "name": "watch-page-to-stream-chain",
+      "input_url": null,
+      "steps": [
+        {
+          "id": "metadata",
+          "method": "GET",
+          "url": "{{input}}",
+          "headers": {
+            "Referer": "https://maxmovies.cc/"
+          },
+          "body": null,
+          "extract": {
+            "videoSourceId": {
+              "$regex": "videoSourceId(?:\\\\+|%22|\"|&quot;)*\\s*:\\s*(?:\\\\+|%22|\"|&quot;)*([a-zA-Z0-9_.-]+)"
+            }
+          }
+        },
+        {
+          "id": "stream",
+          "method": "POST",
+          "url": "https://maxmovies.cc/api/stream",
+          "headers": {
+            "Referer": "https://maxmovies.cc/",
+            "content-type": "application/json"
+          },
+          "body": {
+            "videoSourceId": "{{steps.metadata.videoSourceId}}"
+          },
+          "extract": {
+            "streamUrl": [
+              "hlsUrl",
+              "signedUrl"
+            ]
+          }
+        }
+      ],
+      "result": {
+        "url": "{{steps.stream.streamUrl}}"
+      }
+    },
+    "stream_url": null,
+    "stream_type": "hls",
+    "headers": {
+      "Referer": "https://maxmovies.cc/"
+    },
+    "api_chain": [
+      {
+        "url": "https://maxmovies.cc/api/stream",
+        "method": "POST",
+        "frame_url": "https://maxmovies.cc/watch/movie-1396",
+        "content_type": "application/json",
+        "response_keys": [
+          "signedUrl",
+          "hlsUrl"
+        ],
+        "csp_match": {
+          "path": "signedUrl",
+          "url": "https://cdn.onlycucksscrapeme.cc/mowie-part-2/movies/284689/original-audio/720p/video.mp4?token=REDACTED&expires=REDACTED"
+        },
+        "sample": "{\"sessionId\":451713,\"signedUrl\":\"https://cdn.onlycucksscrapeme.cc/mowie-part-2/movies/284689/original-audio/720p/video.mp4?token=REDACTED&expires=REDACTED\",\"hlsUrl\":\"https://cdn.onlycucksscrapeme.cc/mowie-part-2/movies/284689/original-audio/720p/video.hls/v1790263336/index.m3u8?token=REDACTED&expires=REDACTED\",\"expiresAt\":\"2026-09-25T16:14:26+00:00\",\"issuedAt\":\"2026-09-25T12:14:26.760Z\",\"quality\":\"HD720\",\"audioLanguage\":\"original\",\"subtitleTracks\":[]}"
+      },
+      {
+        "url": "{{input}}",
+        "method": "GET",
+        "response_keys": [
+          "videoSourceId"
+        ],
+        "inferred_recipe_step": "metadata",
+        "sample": null
+      }
+    ],
+    "decryption": {
+      "used": false,
+      "algo": null,
+      "key_source": null,
+      "output": null
+    },
+    "confidence": 0.85,
+    "warnings": [
+      "Stream delivered via replay recipe. watch() requests a fresh stream URL."
+    ]
+  },
+  "obfuscation": {
+    "base64": [],
+    "hex": [],
+    "aes": false,
+    "custom": []
+  }
+}

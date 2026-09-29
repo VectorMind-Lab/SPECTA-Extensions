@@ -1,0 +1,106 @@
+{
+  "SITE_NAME": "maxmovies-cc",
+  "PACKAGE_NAME": "net.maxmovies-cc.ext",
+  "SITE_URL": "https://maxmovies.cc/",
+  "API_SEARCH_ENDPOINT": "https://maxmovies.cc/api/search?q={{q}}&lang=en",
+  "API_DETAILS_ENDPOINT": "",
+  "API_SOURCES_ENDPOINT": "https://maxmovies.cc/api/stream",
+  "CONTAINER_SELECTOR": null,
+  "TITLE_SELECTOR": null,
+  "LINK_SELECTOR": null,
+  "POSTER_SELECTOR": null,
+  "WATCH_RECIPE": {
+    "version": 1,
+    "name": "watch-page-to-stream-chain",
+    "input_url": null,
+    "steps": [
+      {
+        "id": "metadata",
+        "method": "GET",
+        "url": "{{input}}",
+        "headers": {
+          "Referer": "https://maxmovies.cc/"
+        },
+        "body": null,
+        "extract": {
+          "videoSourceId": {
+            "$regex": "videoSourceId(?:\\\\+|%22|\"|&quot;)*\\s*:\\s*(?:\\\\+|%22|\"|&quot;)*([a-zA-Z0-9_.-]+)"
+          }
+        }
+      },
+      {
+        "id": "stream",
+        "method": "POST",
+        "url": "https://maxmovies.cc/api/stream",
+        "headers": {
+          "Referer": "https://maxmovies.cc/",
+          "content-type": "application/json"
+        },
+        "body": {
+          "videoSourceId": "{{steps.metadata.videoSourceId}}"
+        },
+        "extract": {
+          "streamUrl": [
+            "hlsUrl",
+            "signedUrl"
+          ]
+        }
+      }
+    ],
+    "result": {
+      "url": "{{steps.stream.streamUrl}}"
+    }
+  },
+  "WATCH_URL": "https://maxmovies.cc/watch/movie-1396",
+  "WATCH_URL_PATTERN": "/watch/{id}",
+  "STREAM_TYPE": "hls",
+  "STREAM_URL": "",
+  "STREAM_TOKEN": "REDACTED",
+  "HEADERS_JSON": "{\"Referer\":\"https://maxmovies.cc/\"}",
+  "TEMPLATE": "api_chain",
+  "CONFIDENCE": 0.85,
+  "GENERATED": "2026-09-25T12:14:44.087Z",
+  "STATUS_CODE": 1,
+  "REVIEW_REQUIRED": false,
+  "TV_MODE": false,
+  "VERIFIED_AT_CAPTURE": true,
+  "candidates": [],
+  "warnings": [
+    "No repeating container pattern detected.",
+    "Stream delivered via replay recipe. watch() requests a fresh stream URL."
+  ],
+  "notes": [
+    "Manual selector review required."
+  ],
+  "stream": {
+    "type": "hls",
+    "url": null,
+    "token": "REDACTED",
+    "replayable": true
+  },
+  "selftest": {
+    "syntax": {
+      "ok": true,
+      "error": null
+    },
+    "search": {
+      "ok": true,
+      "error": null,
+      "result_count": "present (cannot execute without extension runtime)"
+    },
+    "watch": {
+      "ok": true,
+      "error": null,
+      "url": null,
+      "status": 200,
+      "content_type": "application/vnd.apple.mpegurl"
+    },
+    "overall": true,
+    "status": 1,
+    "notes": [
+      "Stream verified: 200 application/vnd.apple.mpegurl"
+    ]
+  },
+  "status": 1,
+  "status_label": "verified"
+}

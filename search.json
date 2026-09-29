@@ -1,0 +1,161 @@
+{
+  "mode": "api",
+  "api_url": "https://maxmovies.cc/api/search?q={{q}}&lang=en",
+  "field_map": {
+    "title": "title",
+    "url": null,
+    "poster": "posterUrl",
+    "year": "year",
+    "type": "movie"
+  },
+  "failure_type": null,
+  "dom_fallback": {
+    "container": null,
+    "title": null,
+    "link": null,
+    "poster": null,
+    "candidates": [],
+    "confidence": 0
+  },
+  "results": [
+    {
+      "title": "Testament of Youth",
+      "url": "https://maxmovies.cc/watch/movie-1396",
+      "cover": null,
+      "year": "2015",
+      "type": "movie",
+      "source_url": "https://maxmovies.cc/watch/movie-1396"
+    },
+    {
+      "title": "Le Tout Nouveau Testament",
+      "url": "https://maxmovies.cc/watch/movie-1672",
+      "cover": "https://api.onlycucksscrapeme.cc/media/img/images/tmdb/1380ad3ca26f548bba53a6d720ea7eaec9ef25df.jpg",
+      "year": "2015",
+      "type": "movie"
+    },
+    {
+      "title": "Witness",
+      "url": "https://maxmovies.cc/watch/movie-770",
+      "cover": "https://api.onlycucksscrapeme.cc/media/img/images/tmdb/8e9966fcc1d50b69de3b5c9fe8dc2d174ae6324e.jpg",
+      "year": "1985",
+      "type": "movie"
+    },
+    {
+      "title": "Eerie",
+      "url": "https://maxmovies.cc/watch/movie-3451",
+      "cover": null,
+      "year": "2019",
+      "type": "movie"
+    },
+    {
+      "title": "Witless Protection",
+      "url": "https://maxmovies.cc/watch/movie-1993",
+      "cover": null,
+      "year": "2008",
+      "type": "movie"
+    },
+    {
+      "title": "Triage",
+      "url": "https://maxmovies.cc/watch/movie-2540",
+      "cover": "https://api.onlycucksscrapeme.cc/media/img/images/tmdb/e389282185bc7a7025074c8c66b9061db4a3131b.jpg",
+      "year": "2009",
+      "type": "movie"
+    },
+    {
+      "title": "Erased",
+      "url": "https://maxmovies.cc/watch/movie-7375",
+      "cover": "https://api.onlycucksscrapeme.cc/media/img/images/tmdb/b3eede06d359e6424803f2127d5dc01bbf295101.jpg",
+      "year": "2012",
+      "type": "movie"
+    },
+    {
+      "title": "Au hasard Balthazar",
+      "url": "https://maxmovies.cc/watch/movie-2182",
+      "cover": "https://api.onlycucksscrapeme.cc/media/img/images/tmdb/ee81684311fd3b700d3aeb73f709a747c988bafc.jpg",
+      "year": "1966",
+      "type": "movie"
+    },
+    {
+      "title": "Plein soleil",
+      "url": "https://maxmovies.cc/watch/movie-3308",
+      "cover": "https://api.onlycucksscrapeme.cc/media/img/images/tmdb/7f495238e7d566e9cbfc87b35f70b802753f509f.jpg",
+      "year": "1960",
+      "type": "movie"
+    },
+    {
+      "title": "オーディション",
+      "url": "https://maxmovies.cc/watch/movie-3836",
+      "cover": "https://api.onlycucksscrapeme.cc/media/img/images/tmdb/a0796480cbc54760195d4e8410c2744f357dde8a.jpg",
+      "year": "2000",
+      "type": "movie"
+    },
+    {
+      "title": "Witness for the Prosecution",
+      "url": "https://maxmovies.cc/watch/movie-6182",
+      "cover": "https://api.onlycucksscrapeme.cc/media/img/images/tmdb/68f17f83a6d32650cbf86e37ca0df000eff01a7e.jpg",
+      "year": "1957",
+      "type": "movie"
+    },
+    {
+      "title": "Frontière(s)",
+      "url": "https://maxmovies.cc/watch/movie-5737",
+      "cover": "https://api.onlycucksscrapeme.cc/media/img/images/tmdb/77d85e47072d684b8829d50776725aa0f4faec9f.jpg",
+      "year": "2007",
+      "type": "movie"
+    },
+    {
+      "title": "Eden",
+      "url": "https://maxmovies.cc/watch/movie-1905",
+      "cover": null,
+      "year": "2015",
+      "type": "movie"
+    },
+    {
+      "title": "La Rafle",
+      "url": "https://maxmovies.cc/watch/movie-6717",
+      "cover": null,
+      "year": "2010",
+      "type": "movie"
+    },
+    {
+      "title": "L'ordre et la morale",
+      "url": "https://maxmovies.cc/watch/movie-7227",
+      "cover": null,
+      "year": "2011",
+      "type": "movie"
+    },
+    {
+      "title": "Suspiria",
+      "url": "https://maxmovies.cc/watch/movie-1915",
+      "cover": "https://api.onlycucksscrapeme.cc/media/img/images/tmdb/49696c85c360e3ee55db75bfe6edd9962036fd24.jpg",
+      "year": "2018",
+      "type": "movie"
+    },
+    {
+      "title": "2067",
+      "url": "https://maxmovies.cc/watch/movie-3500",
+      "cover": "https://api.onlycucksscrapeme.cc/media/img/images/tmdb/db8f9a9e83d9ed2177b3b0daa62f039f2ce3ae34.jpg",
+      "year": "2020",
+      "type": "movie"
+    },
+    {
+      "title": "Idiocracy",
+      "url": "https://maxmovies.cc/watch/movie-5253",
+      "cover": "https://api.onlycucksscrapeme.cc/media/img/images/tmdb/d14d8894cac9f5b24cbfea39d79dcb6e472c4670.jpg",
+      "year": "2006",
+      "type": "movie"
+    }
+  ],
+  "stable": false,
+  "agreement": 0,
+  "json_apis": [
+    "https://maxmovies.cc/api/me/session",
+    "https://maxmovies.cc/api/cf",
+    "https://maxmovies.cc/api/search?q=test&lang=en",
+    "https://maxmovies.cc/api/languages?ids=770,1396,1672,1905,1915,1993,2182,2540,3308,3451,3500,3836,4624,5253,5737,6182,6717,7227,7375,8056",
+    "https://maxmovies.cc/api/search?q=movie&lang=en",
+    "https://maxmovies.cc/api/languages?ids=25,540,541,542,543,873,1011,1059,1246,1319,1375,1428,1717,2015,2250,3488,5184,5201,7317,8234",
+    "https://maxmovies.cc/api/search?q=popular&lang=en",
+    "https://maxmovies.cc/api/languages?ids=1403,1694,2010,2859,3682,3798,5039,5135,5235,5476,5818,5927,6517,6829,7062,7124,7137,7154,7885,8188"
+  ]
+}

@@ -1,16 +1,17 @@
 {
-  "version": "1.0.0",
+  "schemaVersion": 1,
+  "repositoryId": "net.specta.maxmovies-cc",
+  "name": "maxmovies-cc Catalogue",
   "description": "SPECTA Extension Catalogue",
-  "repository": "https://github.com/VectorMind-Lab/SPECTA-Extensions",
   "extensions": [
     {
       "id": "com.maxmovies.cc",
       "name": "maxmovies-cc",
       "version": "1.0.0",
       "author": "Auto-Discovery",
-      "type": "movie,series",
+      "apiVersion": 2,
       "downloadUrl": "https://raw.githubusercontent.com/VectorMind-Lab/SPECTA-Extensions/main/extensions/maxmovies-cc.js",
-      "icon": null
+      "description": "Discover movies and series from maxmovies.cc"
     }
   ]
 }

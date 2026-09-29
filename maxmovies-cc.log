@@ -1,0 +1,67 @@
+Discovery report for maxmovies-cc
+Generated: 20260925_151533
+Warnings: 2
+Notes: 1
+
+=== FULL LOG ===
+--- Starting discovery for https://maxmovies.cc ---
+[INFO]  Output directory: C:\Users\PORTCR\Desktop\my project\output\maxmovies-cc
+[INFO]  Extension package: net.maxmovies-cc.ext
+[OK]    Auto-loaded profile: maxmovies-cc
+[INFO]  Launching headless Chromium (Playwright)...
+[OK]    Browser launched
+--- Phase 1: Recon ---
+[INFO]  Framework: nextjs
+[INFO]  CDN: cloudflare
+[INFO]  Scripts found: 17
+[INFO]  CSP candidate APIs: 11
+[INFO]  CSP/CDN candidate domains: 11
+[OK]    recon.json written
+--- Phase 2: Search Probe ---
+[INFO]  Query 1/3: test (210050 bytes)
+[INFO]  Query 2/3: movie (222013 bytes)
+[INFO]  Query 3/3: popular (214820 bytes)
+[WARN]  No repeating container pattern detected.
+[NOTE]  Manual selector review required.
+[OK]    Search API results: 18 clean structured record(s)
+[INFO]  Resolved real watch URL from search result: https://maxmovies.cc/watch/movie-1396
+[OK]    Search API: https://maxmovies.cc/api/search?q={{q}}&lang=en
+[OK]    search.json written with 18 real result URL(s)
+--- Phase 3: Detail Probe ---
+[INFO]  Watch page type: player
+[INFO]  Real watch URL: https://maxmovies.cc/watch/movie-1396
+[INFO]  Watch pattern: /watch/{id}
+[INFO]  TV mode: false
+[INFO]  Frames detected: 2
+[INFO]  Play trigger: [class*="play" i] in https://maxmovies.cc/watch/movie-1396
+[INFO]  Frame https://maxmovies.cc/watch/movie-1396: 35 capture(s)
+[INFO]  Frame about:blank: 0 capture(s)
+[OK]    Real watch page loaded (307864 bytes)
+--- Phase 4: Interception ---
+[INFO]  Captured 28 fetch, 5 XHR, 1 blob
+[INFO]  Bodies saved: 6
+[INFO]  Candidate-domain bodies: 5
+[INFO]  [STREAM DISCOVERED]
+[INFO]  URL: https://cdn.onlycucksscrapeme.cc/mowie-part-2/movies/284689/original-audio/720p/video.hls/v1790263336/index.m3u8?token=REDACTED&expires=REDACTED
+[INFO]  Protocol: HLS
+[INFO]  Source: /mowie-part-2/movies/284689/original-audio/720p/video.hls/v1790263336/index.m3u8
+[OK]    Blob URL activity detected
+[OK]    MSE activity detected
+[OK]    Sources API: https://maxmovies.cc/api/stream
+[OK]    interception.json written
+--- Phase 5: Decode ---
+[INFO]  Template: api_chain (confidence 0.85)
+[WARN]  Stream delivered via replay recipe. watch() requests a fresh stream URL.
+[OK]    decode.json written
+--- Phase 6: Generate ---
+[OK]    Prepared 1 header reference(s)
+[OK]    Template filled (strategy api_chain)
+--- Phase 7: Self-Test ---
+[INFO]  Waiting 45 seconds before replay verification
+[OK]    Replay recipe produced a fresh stream URL
+[INFO]  Generated syntax: valid
+[INFO]  search(): present
+[OK]    watch() stream verified: 200 application/vnd.apple.mpegurl
+[INFO]  Stream verified: 200 application/vnd.apple.mpegurl
+[OK]    Replay profile saved: C:\Users\PORTCR\Desktop\my project\profiles\maxmovies-cc.json
+--- Writing output ---
